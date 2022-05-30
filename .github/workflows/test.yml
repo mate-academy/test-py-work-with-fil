@@ -31,11 +31,11 @@ jobs:
       - name: Run tests
         run: pytest tests/
       - uses: mate-academy/auto-approve-action@v2
-        if: ${{ github.event.pull_request && success() }}
+        if: ${{ github.event.pull_request_target && success() }}
         with:
           github-token: ${{ github.token }}
       - uses: mate-academy/auto-reject-action@v2
-        if: ${{ github.event.pull_request && failure() }}
+        if: ${{ github.event.pull_request_target && failure() }}
         with:
           github-token: ${{ github.token }}
 
