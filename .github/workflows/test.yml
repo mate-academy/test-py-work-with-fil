@@ -1,9 +1,6 @@
 name: Test
 
-on:
-  pull_request:
-    branches:
-      - "master"
+on: [push, pull_request_target]
 
 jobs:
   test:
@@ -31,11 +28,10 @@ jobs:
       - name: Run tests
         run: pytest tests/
       - uses: mate-academy/auto-approve-action@v2
-        if: ${{ github.event.pull_request_target && success() }}
+        if: ${{ github.event.pull_request && success() }}
         with:
           github-token: ${{ github.token }}
       - uses: mate-academy/auto-reject-action@v2
-        if: ${{ github.event.pull_request_target && failure() }}
+        if: ${{ github.event.pull_request && failure() }}
         with:
           github-token: ${{ github.token }}
-
